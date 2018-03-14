@@ -42,7 +42,7 @@ final class CheckInUser extends Command
     {
         return [
             'username' => $this->username,
-            '$this->buildingId' => $this->buildingId,
+            'buildingId' => $this->buildingId,
         ];
     }
 
