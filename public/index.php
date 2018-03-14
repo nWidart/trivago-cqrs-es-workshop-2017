@@ -15,7 +15,7 @@ use Zend\Expressive\Application;
 use Zend\Expressive\Router\FastRouteRouter;
 use Zend\Expressive\WhoopsErrorHandler;
 
-call_user_func(function () {
+\call_user_func(function () {
     error_reporting(E_ALL);
     ini_set('display_errors', '1');
 
@@ -67,7 +67,14 @@ call_user_func(function () {
     });
 
     $app->post('/checkin/{buildingId}', function (Request $request, Response $response) use ($sm) : Response {
+        $buildingId = Uuid::fromString($request->getAttribute('buildingId'));
 
+        $sm->get(CommandBus::class)->dispatch(Command\CheckInUser::fromBuildingIdAndUsername(
+            $buildingId,
+            $request->getParsedBody()['username']
+        ));
+
+        return $response->withAddedHeader('Location', "/building/{$buildingId->toString()}");
     });
 
     $app->post('/checkout/{buildingId}', function (Request $request, Response $response) use ($sm) : Response {
