@@ -12,7 +12,7 @@ use Prooph\ServiceBus\EventBus;
 use Prooph\ServiceBus\Message\Bernard\BernardRouter;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
-call_user_func(function () {
+\call_user_func(function () {
     error_reporting(E_ALL);
     ini_set('display_errors', '1');
 
