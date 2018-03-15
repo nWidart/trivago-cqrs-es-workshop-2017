@@ -78,7 +78,14 @@ use Zend\Expressive\WhoopsErrorHandler;
     });
 
     $app->post('/checkout/{buildingId}', function (Request $request, Response $response) use ($sm) : Response {
+        $buildingId = Uuid::fromString($request->getAttribute('buildingId'));
 
+        $sm->get(CommandBus::class)->dispatch(Command\CheckOutUser::fromBuildingIdAndUsername(
+            $buildingId,
+            $request->getParsedBody()['username']
+        ));
+
+        return $response->withAddedHeader('Location', "/building/{$buildingId->toString()}");
     });
 
     $app->pipeDispatchMiddleware();

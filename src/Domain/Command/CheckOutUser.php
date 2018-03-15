@@ -5,7 +5,7 @@ namespace Building\Domain\Command;
 use Prooph\Common\Messaging\Command;
 use Rhumsaa\Uuid\Uuid;
 
-final class CheckInUser extends Command
+final class CheckOutUser extends Command
 {
     /**
      * @var Uuid
